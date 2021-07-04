@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.system.mapper.RoleMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="roleMenuResultMap" type="org.springblade.modules.system.entity.RoleMenu">
+        <id column="id" property="id"/>
+        <result column="menu_id" property="menuId"/>
+        <result column="role_id" property="roleId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="baseColumnList">
+        select
+        id, menu_id, role_id, is_deleted
+    </sql>
+
+    <select id="selectRoleMenuPage" resultMap="roleMenuResultMap">
+        select * from blade_role_menu where is_deleted = 0
+    </select>
+
+    <select id="selectRoleBySystemName" resultType="java.util.HashMap" parameterType="java.lang.String">
+        select br.id as rid,role_name as rname,bm1.id as aid from blade_role_menu brm
+        left join blade_role br on br.id=brm.role_id
+        left join blade_menu bm1 on bm1.id=brm.menu_id
+        where bm1.system_id in
+        (select id
+        from blade_menu
+        where name like #{name})
+    </select>
+
+</mapper>

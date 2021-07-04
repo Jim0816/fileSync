@@ -1,0 +1,36 @@
+import ctypes
+import inspect
+import uuid
+from urllib.request import urlopen
+
+
+# 获取本机MAC地址
+def get_mac_address():
+    mac = uuid.UUID(int=uuid.getnode()).hex[-12:]
+    return ":".join([mac[e:e + 2] for e in range(0, 11, 2)])
+
+
+# 获取本机外网ip
+def get_open_ip():
+    my_ip = urlopen('http://ip.42.pl/raw').read()
+    return str(my_ip).split("'")[1]
+
+def _async_raise(tid, exctype):
+   """raises the exception, performs cleanup if needed"""
+   tid = ctypes.c_long(tid)
+   if not inspect.isclass(exctype):
+      exctype = type(exctype)
+   res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
+   if res == 0:
+      raise ValueError("invalid thread id")
+   elif res != 1:
+      # """if it returns a number greater than one, you're in trouble,
+      # and you should call it again with exc=NULL to revert the effect"""
+      ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
+      raise SystemError("PyThreadState_SetAsyncExc failed")
+
+
+def stop_thread(thread):
+   _async_raise(thread.ident, SystemExit)
+
+

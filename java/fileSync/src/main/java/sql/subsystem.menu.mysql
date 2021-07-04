@@ -1,0 +1,10 @@
+INSERT INTO `blade_menu`(`id`, `parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
+VALUES ('1235034581456412678', 0, 'subsystem', '子系统', 'menu', '/subsystem/subsystem', NULL, 1, 1, 0, 1, NULL, 0);
+INSERT INTO `blade_menu`(`id`, `parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
+VALUES ('1235034581456412679', '1235034581456412678', 'subsystem_add', '新增', 'add', '/subsystem/subsystem/add', 'plus', 1, 2, 1, 1, NULL, 0);
+INSERT INTO `blade_menu`(`id`, `parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
+VALUES ('1235034581456412680', '1235034581456412678', 'subsystem_edit', '修改', 'edit', '/subsystem/subsystem/edit', 'form', 2, 2, 2, 1, NULL, 0);
+INSERT INTO `blade_menu`(`id`, `parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
+VALUES ('1235034581456412681', '1235034581456412678', 'subsystem_delete', '删除', 'delete', '/api/blade-subsystem/subsystem/remove', 'delete', 3, 2, 3, 1, NULL, 0);
+INSERT INTO `blade_menu`(`id`, `parent_id`, `code`, `name`, `alias`, `path`, `source`, `sort`, `category`, `action`, `is_open`, `remark`, `is_deleted`)
+VALUES ('1235034581456412682', '1235034581456412678', 'subsystem_view', '查看', 'view', '/subsystem/subsystem/view', 'file-text', 4, 2, 2, 1, NULL, 0);
